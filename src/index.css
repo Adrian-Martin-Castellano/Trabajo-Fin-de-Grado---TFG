@@ -1,0 +1,18 @@
+@import "leaflet/dist/leaflet.css";
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background-color: #0f172a;
+}
+
+/* Forzar que el contenedor de Leaflet ocupe todo el espacio disponible */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  background-color: #e2e8f0;
+}
