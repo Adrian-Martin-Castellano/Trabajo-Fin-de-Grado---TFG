@@ -6,6 +6,8 @@ export type DataStatus = 'Definitive' | 'SuppressedData' | 'StructuralGap';
 
 export type VisibilityType = 'GoldStandard' | 'SharedView' | 'PrivateView';
 
+export type SourceId = 'ds:atlas-economic' | 'ds:atlas-demographic' | 'ds:istac-local' | 'ds:cadastre-infrastructure';
+
 export interface CensusSection {
   id: string; // CUSEC
   name: string;
@@ -13,26 +15,26 @@ export interface CensusSection {
   island: Island;
   year: number;
   
-  // Medidas de la Dimensión Económica
+  // Medidas Económicas
   rnmp: number | null;
   gini: number | null;
   puc75: number | null;
   
-  // Medidas de la Dimensión Demográfica
-  pp65: number | null; // % Mayores de 65
-  pp18: number | null; // % Menores de 18
-  phu: number | null;  // % Hogares unipersonales
+  // Medidas Demográficas
+  pp65: number | null;
+  pp18: number | null;
+  phu: number | null;
   
-  // Medidas de la Dimensión Edificatoria
-  pre80: number | null; // % Edificios construidos antes de 1980
-  catUso: string;       // Categoría uso catastral (V, T-V, I, C-O, B-Z)
+  // Medidas Edificatorias
+  pre80: number | null;
+  catUso: string;
   
   status: DataStatus;
-  primaryPropertyUse: string; // semvo:AllUses o categoría específica
+  primaryPropertyUse: string;
   
   // Trazabilidad PROV-O
   provSource: string;
-  provDataset: string;
+  provDataset: SourceId;
   
   geometry: {
     type: "Polygon";
