@@ -1,0 +1,34 @@
+prefixes:
+  vuln: "http://pensares.ull.es/ontology/vulnerability#"
+  qb: "http://purl.org/linked-data/cube#"
+  obs: "http://pensares.ull.es/resource/obs/infrastructure/"
+  parcel: "http://pensares.ull.es/resource/parcel/"
+  time: "http://pensares.ull.es/resource/time/"
+  data: "http://pensares.ull.es/dataset/"
+  xsd: "http://www.w3.org/2001/XMLSchema#"
+
+mappings:
+  infrastructure_dimension:
+    sources:
+      - ['atlas_infraestructuras_prep.csv~csv']
+    # La URI de la observación se basa en la Referencia Catastral
+    s: obs:$(REFCAT)_2023
+    po:
+      - [a, qb:Observation]
+      - [qb:dataSet, data:cadastre2023_infrastructure~iri]
+      
+      # Dimensiones Identificadoras (Escala: Parcela Catastral)
+      - [vuln:refArea, parcel:$(REFCAT)~iri]
+      - [vuln:refPeriod, time:2023~iri]
+      
+      # Medidas de Infraestructura
+      - p: vuln:numberOfBuildingsPerParcel
+        o: { value: $(NUM_INMUE), datatype: xsd:nonNegativeInteger }
+      - p: vuln:numberOfResidentialUnits
+        o: { value: $(NUM_EDVIV), datatype: xsd:nonNegativeInteger }
+      - p: vuln:averageConstructionYear
+        o: { value: $(CAT_TIME), datatype: xsd:decimal }
+        
+      # Uso categórico (Enlaza con la URI del individuo de la ontología)
+      - p: vuln:primaryPropertyUse
+        o: vuln:$(CAT_USO)~iri

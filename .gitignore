@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+
+# Node / TypeScript
+node_modules/
+dist/
+.env
+
+# Datos intermedios y salidas RDF generadas por el ETL
+etl/data/processed/*
+!etl/data/processed/.gitkeep
+etl/data/rdf/*
+!etl/data/rdf/.gitkeep
+*.nt

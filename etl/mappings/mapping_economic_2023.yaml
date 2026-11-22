@@ -1,0 +1,43 @@
+prefixes:
+  vuln: "http://pensares.ull.es/ontology/vulnerability#"
+  qb: "http://purl.org/linked-data/cube#"
+  obs: "http://pensares.ull.es/resource/obs/economic/"
+  sec: "http://pensares.ull.es/resource/section/"
+  time: "http://pensares.ull.es/resource/time/"
+  data: "http://pensares.ull.es/dataset/"
+  xsd: "http://www.w3.org/2001/XMLSchema#"
+
+mappings:
+  economic_dimension:
+    sources:
+      - ['atlas_economico_prep.csv~csv']
+    s: obs:$(CUSEC)_2023
+    po:
+      - [a, qb:Observation]
+      - [qb:dataSet, data:atlas2023_economic~iri]
+      
+      # Dimensiones Identificadoras (Escala: Sección Censal)
+      - [vuln:refArea, sec:$(CUSEC)~iri]
+      - [vuln:refPeriod, time:2023~iri]
+      
+      # Medidas Económicas
+      - p: vuln:proportionIncomeSalary
+        o: { value: $(SAL_23), datatype: xsd:decimal }
+      - p: vuln:proportionIncomePensioners
+        o: { value: $(PEN_23), datatype: xsd:decimal }
+      - p: vuln:proportionIncomeUnemployment
+        o: { value: $(DES_23), datatype: xsd:decimal }
+      - p: vuln:proportionIncomeOtherBenefits
+        o: { value: $(ORTP_23), datatype: xsd:decimal }
+      - p: vuln:proportionOtherIncome
+        o: { value: $(ORTI_23), datatype: xsd:decimal }
+      - p: vuln:netMeanIncomePerPerson
+        o: { value: $(RNMP_23), datatype: xsd:decimal }
+      - p: vuln:proportionPopulationBelowThreshold10000
+        o: { value: $(PUC10_23), datatype: xsd:decimal }
+      - p: vuln:giniIndex
+        o: { value: $(GINI_23), datatype: xsd:decimal }
+        
+      # Atributo de calidad inyectado por tu script previo
+      - p: vuln:observationStatus
+        o: vuln:$(estado_obs)~iri

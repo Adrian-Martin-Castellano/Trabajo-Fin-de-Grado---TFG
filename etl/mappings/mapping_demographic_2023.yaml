@@ -1,0 +1,36 @@
+prefixes:
+  vuln: "http://pensares.ull.es/ontology/vulnerability#"
+  qb: "http://purl.org/linked-data/cube#"
+  obs: "http://pensares.ull.es/resource/obs/demographic/"
+  sec: "http://pensares.ull.es/resource/section/"
+  time: "http://pensares.ull.es/resource/time/"
+  data: "http://pensares.ull.es/dataset/"
+  xsd: "http://www.w3.org/2001/XMLSchema#"
+
+mappings:
+  demographic_dimension:
+    sources:
+      - ['atlas_demografico_prep.csv~csv']
+    s: obs:$(CUSEC)_2023
+    po:
+      - [a, qb:Observation]
+      - [qb:dataSet, data:atlas2023_demographic~iri]
+      
+      # Dimensiones Identificadoras (Escala: Sección Censal)
+      - [vuln:refArea, sec:$(CUSEC)~iri]
+      - [vuln:refPeriod, time:2023~iri]
+      
+      # Medidas Demográficas
+      - p: vuln:proportionPopulationUnder18
+        o: { value: $(PP18_23), datatype: xsd:decimal }
+      - p: vuln:proportionPopulationOver65
+        o: { value: $(PP65_23), datatype: xsd:decimal }
+      - p: vuln:proportionSinglePersonHouseholds
+        o: { value: $(PHU_23), datatype: xsd:decimal }
+      - p: vuln:totalPopulation
+        o: { value: $(POB_23), datatype: xsd:nonNegativeInteger }
+      - p: vuln:proportionPopulationSpanishNationality
+        o: { value: $(PESP_23), datatype: xsd:decimal }
+        
+      - p: vuln:observationStatus
+        o: vuln:$(estado_obs)~iri
